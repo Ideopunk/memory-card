@@ -1,1 +1,14 @@
 @import "./reset";
+
+$sitecolor: blue;
+
+.card {
+  width: 8rem;
+  height: 10rem;
+  padding: 0.25rem;
+  object-fit: contain;
+  border: 1px solid red;
+}
+
+.entrant-img {
+}

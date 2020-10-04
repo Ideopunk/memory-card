@@ -2,13 +2,22 @@
 
 $sitecolor: blue;
 
+.game {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .card {
   width: 8rem;
   height: 10rem;
   padding: 0.25rem;
-  object-fit: contain;
-  border: 1px solid red;
+  margin: 0.5rem;
+  object-fit: cover;
+  border: 1px solid blue;
 }
 
 .entrant-img {
+  object-fit: cover;
+  width: 8rem;
+  height: 10rem;
 }

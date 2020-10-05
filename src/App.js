@@ -22,14 +22,17 @@ function App() {
 		{ rgb: "(192, 255, 0)", name: "Lime" },
 		{ rgb: "(113, 188, 120)", name: "Fern" },
 		{ rgb: "(86, 130, 3)", name: "Avocado" },
-    { rgb: "(135, 169, 107)", name: "Asparagus" },
-    {rgb: "(75, 111, 68)", name: "Artichoke"}
+		{ rgb: "(135, 169, 107)", name: "Asparagus" },
+		{ rgb: "(75, 111, 68)", name: "Artichoke" },
+		{ rgb: "(0, 158, 96)", name: "Shamrock" },
+		{ rgb: "(49, 120, 115)", name: "Myrtle" },
 	];
 
 	const [urlArray, setURLArray] = useState(
 		shuffleArray(
-			colors.map((fakeURL) => {
-				return { url: fakeURL, clicked: false };
+			colors.map((color) => {
+				color.clicked = false;
+				return color;
 			})
 		)
 	);
@@ -63,7 +66,7 @@ function App() {
 		if (url.clicked === false) {
 			setURLArray((urlArray) =>
 				urlArray.map((entry) => {
-					if (entry.url === url.url) {
+					if (entry.name === url.name) {
 						entry.clicked = true;
 					}
 					return entry;
@@ -78,10 +81,14 @@ function App() {
 		setURLArray(shuffleArray(urlArray));
 	};
 
-	const mappedURLs = urlArray.map((url, index) => (
-		<div className="card" key={index} value={url.clicked} onClick={() => onHit(url)}>
-			<img className="entrant-img" src={url.url} alt="entrant" />
-		</div>
+	const mappedURLs = urlArray.map((url) => (
+		<div
+			style={{ backgroundColor: `rgb${url.rgb}` }}
+			className="card"
+			key={url.name}
+			value={url.clicked}
+			onClick={() => onHit(url)}
+		></div>
 	));
 
 	return (

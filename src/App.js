@@ -3,7 +3,7 @@ import Toast from "./components/Toast";
 import "./style/App.scss";
 
 function App() {
-	const shuffleArray = (array) => {
+	const shuffleArray = (array) => { // Durstenfeld shuffle
 		let newArray = Object.assign(array);
 		for (var i = newArray.length - 1; i > 0; i--) {
 			var j = Math.floor(Math.random() * (i + 1));
@@ -18,15 +18,15 @@ function App() {
 		{ rgb: "(62, 180, 137)", name: "Mint" },
 		{ rgb: "(208, 240, 192)", name: "Tea" },
 		{ rgb: "(128, 128, 0)", name: "Olive" },
-		// { rgb: "(1, 121, 111)", name: "Pine" },
-		// { rgb: "(138, 154, 91)", name: "Moss" },
-		// { rgb: "(192, 255, 0)", name: "Lime" },
-		// { rgb: "(113, 188, 120)", name: "Fern" },
-		// { rgb: "(86, 130, 3)", name: "Avocado" },
-		// { rgb: "(135, 169, 107)", name: "Asparagus" },
-		// { rgb: "(75, 111, 68)", name: "Artichoke" },
-		// { rgb: "(0, 158, 96)", name: "Shamrock" },
-		// { rgb: "(49, 120, 115)", name: "Myrtle" },
+		{ rgb: "(1, 121, 111)", name: "Pine" },
+		{ rgb: "(138, 154, 91)", name: "Moss" },
+		{ rgb: "(192, 255, 0)", name: "Lime" },
+		{ rgb: "(113, 188, 120)", name: "Fern" },
+		{ rgb: "(86, 130, 3)", name: "Avocado" },
+		{ rgb: "(135, 169, 107)", name: "Asparagus" },
+		{ rgb: "(75, 111, 68)", name: "Artichoke" },
+		{ rgb: "(0, 158, 96)", name: "Shamrock" },
+		{ rgb: "(49, 120, 115)", name: "Myrtle" },
 	];
 
 	const [urlArray, setURLArray] = useState(
@@ -81,34 +81,25 @@ function App() {
 	};
 
 	useEffect(() => {
-		console.log("useeffect");
-		console.log(score);
-		console.log(urlArray.length);
 		if (score === urlArray.length) {
-			console.log("does equal");
-			console.log(`win: ${win}, score: ${score}, urlArray.length: ${urlArray.length}`);
 			setScore(0);
 			setWin(true);
 		}
 	}, [score, win, urlArray]);
 
-	useEffect(() => {
-    console.log("useeffect 2");
-    console.log(`win: ${win}, score: ${score}, urlArray.length: ${urlArray.length}`);
-	}, [score, win, urlArray]);
+
 
 	const mappedURLs = urlArray.map((url) => (
 		<div
-			style={{ border: `3px solid rgb${url.rgb}` }}
+			style={{ backgroundColor: `rgb${url.rgb}` }}
 			className="card"
 			key={url.name}
 			value={url.clicked}
 			onClick={() => onHit(url)}
 		>
-			<div style={{ backgroundColor: `rgb${url.rgb}` }} className="inset"></div>
-			<p style={{}} className="title">
+			<div style={{}} className="title">
 				{url.name}
-			</p>
+			</div>
 		</div>
 	));
 
@@ -122,8 +113,10 @@ function App() {
 					<p>
 						Get a high score by clicking each image without clicking any more than once!
 					</p>
-					<p>Score: {score}</p>
-					<p>High score: {highScore}</p>
+          <div className="scores">
+					  <p>Score: {score}</p>
+					  <p>High score: {highScore}</p>
+          </div>
 				</div>
 			</div>
 			<div className="game">{mappedURLs}</div>

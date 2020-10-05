@@ -1,6 +1,10 @@
 @import "./reset";
 
-$sitecolor: blue;
+$sitecolor: rgb(125, 204, 125);
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 
 .header {
   display: flex;
@@ -29,6 +33,7 @@ $sitecolor: blue;
 
 .card {
   width: 15%;
+  min-width: 200px;
   height: 16rem;
   object-fit: cover;
   margin: 0.5rem;
@@ -56,4 +61,31 @@ $sitecolor: blue;
   object-fit: cover;
   width: inherit;
   height: inherit;
+}
+
+.toast {
+  position: fixed;
+  padding: 0.5rem 0.75rem;
+  line-height: 1.5;
+  border-radius: 3px;
+  width: 30%;
+  font-size: 3rem;
+  height: 100px;
+  bottom: 1rem;
+  left: 35%;
+  border: 1px solid black;
+  background-color: $sitecolor;
+  opacity: 1;
+  transition: opacity .5s linear 0.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transition {
+  opacity: 0;
+}
+
+.hide {
+  display: none;
 }

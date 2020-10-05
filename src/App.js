@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Toast from "./components/Toast";
 import "./style/App.scss";
 
 function App() {
@@ -17,15 +18,15 @@ function App() {
 		{ rgb: "(62, 180, 137)", name: "Mint" },
 		{ rgb: "(208, 240, 192)", name: "Tea" },
 		{ rgb: "(128, 128, 0)", name: "Olive" },
-		{ rgb: "(1, 121, 111)", name: "Pine" },
-		{ rgb: "(138, 154, 91)", name: "Moss" },
-		{ rgb: "(192, 255, 0)", name: "Lime" },
-		{ rgb: "(113, 188, 120)", name: "Fern" },
-		{ rgb: "(86, 130, 3)", name: "Avocado" },
-		{ rgb: "(135, 169, 107)", name: "Asparagus" },
-		{ rgb: "(75, 111, 68)", name: "Artichoke" },
-		{ rgb: "(0, 158, 96)", name: "Shamrock" },
-		{ rgb: "(49, 120, 115)", name: "Myrtle" },
+		// { rgb: "(1, 121, 111)", name: "Pine" },
+		// { rgb: "(138, 154, 91)", name: "Moss" },
+		// { rgb: "(192, 255, 0)", name: "Lime" },
+		// { rgb: "(113, 188, 120)", name: "Fern" },
+		// { rgb: "(86, 130, 3)", name: "Avocado" },
+		// { rgb: "(135, 169, 107)", name: "Asparagus" },
+		// { rgb: "(75, 111, 68)", name: "Artichoke" },
+		// { rgb: "(0, 158, 96)", name: "Shamrock" },
+		// { rgb: "(49, 120, 115)", name: "Myrtle" },
 	];
 
 	const [urlArray, setURLArray] = useState(
@@ -38,7 +39,7 @@ function App() {
 	);
 	const [highScore, setHighScore] = useState(0);
 	const [score, setScore] = useState(0);
-
+	const [win, setWin] = useState(false);
 	//
 
 	const checkHighScore = () => {
@@ -61,8 +62,6 @@ function App() {
 	};
 
 	const onHit = (url) => {
-		console.log(`onHit, ${url}`);
-
 		if (url.clicked === false) {
 			setURLArray((urlArray) =>
 				urlArray.map((entry) => {
@@ -74,16 +73,32 @@ function App() {
 			);
 
 			checkHighScore() ? setHighScore(highScore) : setHighScore(score + 1);
-			setScore(score + 1);
+			setScore((score) => score + 1);
 		} else {
 			onMiss();
 		}
 		setURLArray(shuffleArray(urlArray));
 	};
 
+	useEffect(() => {
+		console.log("useeffect");
+		console.log(score);
+		console.log(urlArray.length);
+		if (score === urlArray.length) {
+			console.log("does equal");
+			console.log(`win: ${win}, score: ${score}, urlArray.length: ${urlArray.length}`);
+			setScore(0);
+			setWin(true);
+		}
+	}, [score, win, urlArray]);
+
+	useEffect(() => {
+    console.log("useeffect 2");
+    console.log(`win: ${win}, score: ${score}, urlArray.length: ${urlArray.length}`);
+	}, [score, win, urlArray]);
+
 	const mappedURLs = urlArray.map((url) => (
 		<div
-			// style={{ border: `1px solid rgb${url.rgb}}` }}
 			style={{ border: `3px solid rgb${url.rgb}` }}
 			className="card"
 			key={url.name}
@@ -91,7 +106,9 @@ function App() {
 			onClick={() => onHit(url)}
 		>
 			<div style={{ backgroundColor: `rgb${url.rgb}` }} className="inset"></div>
-			<p style={{ }} className="title">{url.name}</p>
+			<p style={{}} className="title">
+				{url.name}
+			</p>
 		</div>
 	));
 
@@ -110,6 +127,7 @@ function App() {
 				</div>
 			</div>
 			<div className="game">{mappedURLs}</div>
+			{win ? <Toast /> : null}
 		</div>
 	);
 }

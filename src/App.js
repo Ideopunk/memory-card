@@ -83,12 +83,16 @@ function App() {
 
 	const mappedURLs = urlArray.map((url) => (
 		<div
-			style={{ backgroundColor: `rgb${url.rgb}` }}
+			// style={{ border: `1px solid rgb${url.rgb}}` }}
+			style={{ border: `3px solid rgb${url.rgb}` }}
 			className="card"
 			key={url.name}
 			value={url.clicked}
 			onClick={() => onHit(url)}
-		></div>
+		>
+			<div style={{ backgroundColor: `rgb${url.rgb}` }} className="inset"></div>
+			<p style={{ }} className="title">{url.name}</p>
+		</div>
 	));
 
 	return (
@@ -99,7 +103,7 @@ function App() {
 				</header>
 				<div className="guide">
 					<p>
-						Get a high score by clicking each image without clicking any more than once
+						Get a high score by clicking each image without clicking any more than once!
 					</p>
 					<p>Score: {score}</p>
 					<p>High score: {highScore}</p>
